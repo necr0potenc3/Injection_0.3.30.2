@@ -1,0 +1,212 @@
+Scriptiong language is something like BASIC. 
+Comments start with '#' or ';'. There can be only one operator at line.
+
+Script operators:
+
+VAR var1, var2, ...
+	- define variable. Variable gets its type on assignment and can change
+it anytime. There are 3 types - string, numeric and class. Currently there
+is only one class and its instance is in global variable UO, so you can think
+that there can be only 2 types - string and numeric. Variable names are case
+insensitive and can contain international letters.
+Example:
+	VAR i, j
+	VAR k=123
+	VAR str="this is a string"
+You can access letters in string variables with '[]'. For example str[0] will
+return the first letter of string. You assign value of one variable to the 
+other with '='
+Example:
+	i=123
+	j=i+5*sin(PI)
+	k=LEN(str+"bla bla bla")
+
+
+DIM array1[size], array2[size], ...
+	- define an aray. Currently you can't return arrays from functions, but you
+can pass them as parameters. 
+Example:
+	DIM A[10]
+
+
+SUB function_name(parameters)
+	...
+	RETURN value
+	...
+ENDSUB
+	- function definition. Function can contain any number of RETURN statements
+or not contain them at all. If function does not contain a RETURN statement or
+RETURN is specified without "value" - it is considered a procedure.
+Examples:
+	SUB sub_without_parameters()
+	ENDSUB
+
+	SUB make_a_summ(a,b)
+		RETURN a+b
+	ENDSUB
+
+
+IF condition THEN
+	...
+ENDIF
+	- IF-THEN condition. You can use "<",">","<=",">=","==","<>" to check if 
+one value is less then other. Use "AND", "OR", "NOT" in boolean expressions.
+You cn use "&&" instead of "AND" and "||" instead of "OR". The zero value is
+considered FALSE, the non-zero is TRUE.
+
+
+IF condition THEN
+	...
+ELSE
+	...
+ENDIF
+	- IF-THEN-ELSE
+
+
+Label_name:
+	- label definition.
+
+
+GOTO label_name
+	- go to label. You can GOTO outside loops, but you can't GOTO outside SUB.
+
+
+REPEAT
+	...
+UNTIL condition
+	- "..." is executed until the condition would be TRUE. The "..." would be 
+executed at least once.
+
+
+WHILE condition
+	...
+WEND
+	- "..." is executed while the condition is TRUE. 
+
+
+FOR variable=start_value TO end_value [STEP step]
+	...
+NEXT 
+	- The FOR loop, like in BASIC. You should not specify the variable name 
+after NEXT. Nested loops are supported. 
+
+
+
+
+You control Ultima Online client through the global class UO
+It has methods:
+    UO.Print("string")  - print message to the client window.
+    UO.Exec("command")  - execute a command. For the list of
+                          commands consult documentation.
+    UO.Say("something") - make you character say something.
+    UO.Press(KeyCode[,Count[,Delay]]) - Simulate keypress.
+         KeyCode    - Virtual key code.
+         Count      - Optional. Number of keypresses.
+         Delay      - Time in msec to wait between keypresses.
+    UO.LClick(X,Y)      - Simulate left button click.
+    UO.RClick(X,Y)      - Simulate right button click.
+    UO.LDblClick(X,Y)   - Simulate left button double click.
+    UO.RDblClick(X,Y)   - Simulate right button double click.
+    UO.Drag(X1,Y1, X2,Y2 [,amount])   - drag something.
+If you don't specify amount the whole stock is dragged.
+You can use "Insert key code" button to get virtual key code.
+And use "Pick coord" to find mouse coordinates on screen.
+Don't forget to call function Wait(time in msec) after
+using skill/spell to wait until it finishes!
+List of read-only properties:
+    UO.Life, UO.Mana, UO.Stamina, UO.STR, UO.INT, UO.DEX,
+    UO.Weight, UO.Armor, UO.Gold, UO.BM, UO.BP, UO.GA, UO.GS,
+    UO.MR, UO.NS, UO.SA, UO.SS, UO.VA, UO.EN, UO.WH, UO.FD,
+    UO.BR, UO.H, UO.C, UO.M, UO.L, UO.B, UO.AR, UO.BT
+
+
+Procedures accessible from scripts:
+Wait(time)
+	- pause the execution for the given number of milliseconds
+Example:
+	Wait(1000)		# wait for 1 second
+
+
+Message("Mesage text"[,"Caption"])
+	- shows the message box with the OK button. The "Caption" is optional.
+Example:
+	Message("Press OK to continue running script")
+
+
+Functions:
+VAL(string_variable)
+	- return the numeric value of the given string.
+
+STR(numeric_value)
+	-convert number to string. You can use this function to print numbers to UO
+window.
+Example:
+	UO.Print("Your life is "+STR(UO.Life))
+
+---------------------------------------------
+Example of script:
+
+sub WaitWeightToChange(OldWeight)
+	for var r=0 to 40
+		if UO.Weight<>OldWeight then
+			return 1
+		end if
+		wait(200)
+	next
+	return 0
+end sub
+
+sub main()
+	var weight
+	var i
+	while UO.Gold<150000
+		for i=1 to 3
+Restart:
+			UO.Press(27)
+			weight=UO.Weight
+			UO.Exec("buy fish")
+			if WaitWeightToChange(weight)==0 then
+				goto Restart
+			end if
+
+			weight=UO.Weight
+			UO.Exec("waittargettype Fish1")
+			UO.Exec("usetype knife")
+			WaitWeightToChange(weight)
+
+			weight=UO.Weight
+			UO.Exec("waittargettype Fish2")
+			UO.Exec("usetype knife")
+			WaitWeightToChange(weight)
+
+			weight=UO.Weight
+			UO.Exec("waittargettype Fish3")
+			UO.Exec("usetype knife")
+			WaitWeightToChange(weight)
+
+			weight=UO.Weight
+			UO.Exec("waittargettype Fish4")
+			UO.Exec("usetype knife")
+			WaitWeightToChange(weight)
+   		next
+
+		weight=UO.Weight
+		UO.Exec("sell steaks")
+		WaitWeightToChange(weight)
+	wend
+end sub
+
+You should start function "main" to run it. It buyes fish 3 times (you should 
+make a ",buy fish" macro in Injection, then uses any knife from your backpack 
+on 4 different types of fish you can buy. You should specify "knife" to be 
+0x0f51, "Fish1"-"Fish4" to be 0x09cc-0x09cf in "Object types" tab in Injection.
+And then sells steaks. It repeats this until your money would be >150000.
+
+After issuing any command to UO you should call a WAIT(...) function to wait 
+until UO finishes its operation. Or you can check your weight/gold/mana/etc
+to find the end of operation. For example you can find the end of buy/sell by
+monitoring your gold or weight. 
+
+Maybe in the future there would be a more convenient way to wait for the end of 
+current operation in UO. Something like function WaitForSpellToCast() or 
+WaitUntilServerSays("the spell fizzles")...

@@ -1,0 +1,18 @@
+USEUNIT("Unit1.cpp");
+USEFORM("UnitFrm.cpp", MainForm);
+USEFORM("Editor.cpp", EditForm);
+USEUNIT("yylex.cpp");
+USEUNIT("my_rtl.cpp");
+USEUNIT("mycsubs.cpp");
+USEUNIT("myfuncs.cpp");
+USEUNIT("myparser.cpp");
+USEUNIT("mystring.cpp");
+USEUNIT("myutil.cpp");
+USEUNIT("myvar.cpp");
+USEUNIT("operators.cpp");
+USEUNIT("script_y.cpp");
+USEUNIT("ScrRun.cpp");
+//---------------------------------------------------------------------------
+This file is used by the project manager only and should be treated like the project file
+
+DllEntryPoint

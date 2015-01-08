@@ -1,0 +1,94 @@
+/* Wedit generated resource file */
+#include <windows.h>
+#include "resource.h"
+
+500 ICON "ignition.ico"
+
+ID_DLG_MAIN DIALOG 5, 20, 250, 130
+STYLE DS_MODALFRAME | WS_MINIMIZEBOX | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Injection Launcher"
+FONT 8, "Helv"
+BEGIN
+    LTEXT           "Client dir:", 116, 5, 5, 35, 12
+    LTEXT           "-", ID_ST_CLIENTDIR, 55, 5, 140, 12
+    PUSHBUTTON      "Chan&ge", ID_BT_CLIENTDIR, 200, 5, 45, 14
+    LTEXT           "&Server:", 101, 5, 20, 40, 12
+    COMBOBOX        ID_CB_SERVER, 55, 20, 140, 70, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Edit List", ID_BT_SERVERS, 200, 20, 45, 14
+    LTEXT           "&Address:", 102, 5, 35, 40, 12
+    LTEXT           "-", ID_ST_ADDRESS, 55, 35, 140, 12
+    LTEXT           "&Client:", 103, 5, 50, 40, 12
+    COMBOBOX        ID_CB_CLIENT, 55, 50, 140, 70, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "E&dit List", ID_BT_CLIENTS, 200, 50, 45, 14
+    LTEXT           "Executable:", 104, 5, 65, 40, 12
+    LTEXT           "-", ID_ST_EXEPATH, 55, 65, 140, 12
+    LTEXT           "Ignition.cfg:", 111, 5, 80, 40, 12
+    LTEXT           "-", ID_ST_IGNITIONCFG, 55, 80, 140, 12
+    PUSHBUTTON      "C&hange", ID_BT_IGNITIONCFG, 200, 80, 45, 14
+    AUTOCHECKBOX    "Use &Injection", ID_CH_INJECTION, 5, 95, 60, 10
+    AUTOCHECKBOX    "E&xit after launch", ID_CH_CLOSEWHENDONE, 75, 95, 80, 10
+    DEFPUSHBUTTON   "&Launch", ID_BT_LAUNCH, 65, 110, 50, 14
+    PUSHBUTTON      "Close", IDCANCEL, 135, 110, 50, 14
+END
+
+ID_DLG_LAUNCHING DIALOG 5, 20, 134, 130
+STYLE DS_MODALFRAME | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Launching..."
+FONT 8, "Helv"
+BEGIN
+    LTEXT           "Checking client version...", ID_ST_CALCULATINGCRC, 5, 5, 80, 12, NOT WS_VISIBLE
+    LTEXT           "", ID_ST_DONE4, 90, 5, 35, 12
+    LTEXT           "Loading Ignition.cfg...", ID_ST_LOADINGIGNITIONCFG, 5, 20, 80, 12, NOT WS_VISIBLE
+    LTEXT           "", ID_ST_DONE5, 90, 20, 35, 12
+    LTEXT           "Loading ilpatch.cfg...", ID_ST_LOADINGILPATCHCFG, 5, 35, 80, 12, NOT WS_VISIBLE
+    LTEXT           "", ID_ST_DONE6, 90, 35, 35, 12
+    LTEXT           "Saving login.cfg...", ID_ST_SAVINGLOGINCFG, 5, 50, 80, 12, NOT WS_VISIBLE
+    LTEXT           "", ID_ST_DONE7, 90, 50, 35, 12
+    LTEXT           "Loading Injection...", ID_ST_LOADINGINJECTION, 5, 65, 80, 12, NOT WS_VISIBLE
+    LTEXT           "", ID_ST_DONE1, 90, 65, 35, 12
+    LTEXT           "Starting client...", ID_ST_STARTINGCLIENT, 5, 80, 80, 12, NOT WS_VISIBLE
+    LTEXT           "", ID_ST_DONE2, 90, 80, 35, 12
+    LTEXT           "Patching Client...", ID_ST_PATCHINGCLIENT, 5, 95, 80, 12, NOT WS_VISIBLE
+    LTEXT           "", ID_ST_DONE3, 90, 95, 35, 12
+    PUSHBUTTON      "Error &Details", ID_BT_DETAILS, 5, 110, 55, 14, WS_DISABLED
+    PUSHBUTTON      "&Close", IDCANCEL, 70, 110, 55, 14
+END
+
+ID_DLG_SERVERS DIALOG 15, 28, 180, 167
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Edit Servers"
+FONT 8, "Helv"
+BEGIN
+    LISTBOX         ID_LB_SERVERS, 5, 5, 120, 75, WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Delete", ID_BT_DELETESERVER, 130, 5, 45, 14
+    PUSHBUTTON      "&Save", ID_BT_SAVESERVER, 130, 30, 45, 14
+    PUSHBUTTON      "&Add", ID_BT_ADDSERVER, 130, 55, 45, 14
+    LTEXT           "&Name:", 305, 5, 80, 35, 12
+    EDITTEXT        ID_EB_SERVERNAME, 50, 80, 75, 12, ES_AUTOHSCROLL
+    LTEXT           "A&ddress:", 306, 5, 95, 35, 12
+    EDITTEXT        ID_EB_SERVERADDRESS, 50, 95, 75, 12, ES_AUTOHSCROLL
+    PUSHBUTTON      "OK", IDOK, 33, 143, 45, 14
+    PUSHBUTTON      "Cancel", IDCANCEL, 88, 143, 45, 14
+    LTEXT           "&Username:", 310, 5, 110, 35, 12
+    EDITTEXT        ID_EB_SERVERUSERNAME, 50, 111, 75, 12, ES_AUTOHSCROLL
+    LTEXT           "&Password:", 312, 5, 125, 35, 12
+    EDITTEXT        ID_EB_SERVERPASSWORD, 50, 126, 75, 12, ES_PASSWORD | ES_AUTOHSCROLL
+END
+
+ID_DLG_CLIENTS DIALOG 5, 20, 200, 140
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Edit Clients"
+FONT 8, "Helv"
+BEGIN
+    LISTBOX         ID_LB_CLIENTS, 5, 5, 140, 75, WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Delete", ID_BT_DELETECLIENT, 150, 5, 45, 14
+    PUSHBUTTON      "&Save", ID_BT_SAVECLIENT, 150, 30, 45, 14
+    PUSHBUTTON      "&Add", ID_BT_ADDCLIENT, 150, 55, 45, 14
+    LTEXT           "&Name:", 305, 5, 80, 35, 12
+    EDITTEXT        ID_EB_CLIENTNAME, 35, 80, 110, 12, ES_AUTOHSCROLL
+    LTEXT           "&Path:", 306, 5, 95, 35, 12
+    LTEXT           "-", ID_ST_CLIENTPATH, 35, 95, 110, 20
+    PUSHBUTTON      "&Choose", ID_BT_CHOOSEPATH, 150, 95, 45, 14
+    PUSHBUTTON      "OK", IDOK, 35, 120, 45, 14
+    PUSHBUTTON      "Cancel", IDCANCEL, 100, 120, 45, 14
+END
